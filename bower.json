@@ -1,0 +1,24 @@
+{
+  "name": "zyx-rent",
+  "description": "Rent",
+  "version": "0.0.1",
+  "homepage": "https://github.com/c-dos/zyx-rent",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "3.3.x"
+  },
+  "authors": [
+    "Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>"
+  ],
+  "directory": "src/zyx_rent/static-project",
+  "keywords": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
+
+

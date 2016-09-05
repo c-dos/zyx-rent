@@ -1,0 +1,14 @@
+{
+  "name": "zyx-rent",
+  "version": "0.0.1",
+  "description": "Not jet",
+  "repository": "https://github.com/c-dos/zyx-rent",
+  "license": "MIT",
+  "devDependencies": {
+    "bower": "^1.7.7"
+  },
+  "scripts": {
+    "postinstall": "bower install"
+  }
+}
+
