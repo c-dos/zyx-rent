@@ -17,7 +17,9 @@ class Property(models.Model):
 
 
 class Tenant(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, default=None)
     email = models.EmailField()
-    phone = models.CharField(max_length=100)
-    user = models.ForeignKey(User, default=None)
+    user = models.ForeignKey(User, blank=True)
+    phone = models.CharField(max_length=100, blank=True)
+    bank = models.CharField(max_length=100, blank=True)
+    account = models.CharField(max_length=100, blank=True)

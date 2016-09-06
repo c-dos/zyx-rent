@@ -1,0 +1,19 @@
+{% extends 'utilities/obj_edit.html' %}
+
+{% load form_helpers %}
+
+
+{% block form %}
+    <div class="panel panel-default">
+        <div class="panel-heading"><strong>Tenant</strong></div>
+        <div class="panel-body">
+            {% render_field form.name %}
+            {% render_field form.email %}
+            {% render_field form.bank %}
+            {% render_field form.account %}
+            {% render_field form.install_date %}
+            {% render_field form.xconnect_id %}
+            {% render_field form.pp_info %}
+        </div>
+    </div>
+{% endblock %}
