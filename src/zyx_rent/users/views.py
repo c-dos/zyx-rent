@@ -19,17 +19,13 @@ class LoginView(LoginRequiredMixin, generic.View):
 
 
 # Tenant
-class TenantAddView(LoginRequiredMixin, generic.CreateView):
+class TenantAddView(LoginRequiredMixin, ObjectEditView):
+    model = Tenant
     form_class = TenantForm
     success_url = reverse_lazy('tenant_list')
     template_name = 'tenants/add.html'
     cancel_url = 'tenant_list'
-
-    def form_valid(self, form):
-        obj = form.save(commit=False)
-        obj.user = self.request.user
-        obj.save()
-        return super(TenantAddView, self).form_valid(form)
+    column_created_by = 'user'
 
 
 class TenantListView(LoginView, generic.ListView):

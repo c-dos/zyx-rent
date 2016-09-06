@@ -102,6 +102,7 @@ class ObjectEditView(View):
     template_name = 'utilities/obj_edit.html'
     success_url = None
     cancel_url = None
+    column_created_by = None
 
     def get_object(self, kwargs):
         # Look up object by slug if one has been provided. Otherwise, use PK.
@@ -135,9 +136,11 @@ class ObjectEditView(View):
         if form.is_valid():
             obj = form.save(commit=False)
             obj_created = not obj.pk
+            if self.column_created_by:
+                setattr(obj, self.column_created_by, request.user)
             obj.save()
-            if isinstance(form, CustomFieldForm):
-                form.save_custom_fields()
+            #if isinstance(form, CustomFieldForm):
+            #    form.save_custom_fields()
 
             msg = u'Created ' if obj_created else u'Modified '
             msg += self.model._meta.verbose_name
@@ -146,10 +149,10 @@ class ObjectEditView(View):
             else:
                 msg = u'{} {}'.format(msg, obj)
             messages.success(request, msg)
-            if obj_created:
-                UserAction.objects.log_create(request.user, obj, msg)
-            else:
-                UserAction.objects.log_edit(request.user, obj, msg)
+            #if obj_created:
+            #    UserAction.objects.log_create(request.user, obj, msg)
+            #else:
+            #    UserAction.objects.log_edit(request.user, obj, msg)
 
             if '_addanother' in request.POST:
                 return redirect(request.path)
