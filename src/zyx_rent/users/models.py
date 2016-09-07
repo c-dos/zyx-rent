@@ -1,9 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
+from utilities.models import CreatedUpdatedModel
 
 
-class Property(models.Model):
+class Property(CreatedUpdatedModel):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=250)
     description = models.TextField()
@@ -16,7 +17,7 @@ class Property(models.Model):
     tenant = models.ForeignKey('Tenant', default=None)
 
 
-class Tenant(models.Model):
+class Tenant(CreatedUpdatedModel):
     name = models.CharField(max_length=100, default=None)
     email = models.EmailField()
     user = models.ForeignKey(User, blank=True)
