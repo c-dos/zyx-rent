@@ -4,10 +4,7 @@
 {% load static %}
 <head>
     <link rel="stylesheet" href="{{ STATIC_URL }}style.css" />
-    <link rel="stylesheet" href="{% static "jquery/dist/jquery.min.js" %}">
-    <link rel="stylesheet" href="{% static "bootstrap/dist/js/bootstrap.min.js" %}">
     <link rel="stylesheet" href="{% static "bootstrap/dist/css/bootstrap.min.css" %}">
-
     <title>{% block title %}User test{% endblock %}</title>
 </head>
 
@@ -27,23 +24,38 @@
     {% endblock %}
     </div>
 
-    {% block messages %}
-    {% if messages %}
-    <ul class="messagelist">{% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
-        {% endfor %}</ul>
-    {% endif %}
-    {% endblock messages %}
+	<div class="container wrapper">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissable" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message|safe }}
+            </div>
+        {% endfor %}
 
-    <div id="content">
-    {% block content %}{% endblock %}
-    </div>
+        <div id="content">
+        {% block content %}{% endblock %}
+        </div>
 
-    <div id="footer">
-    {% block footer %}
-        <hr />
-    {% endblock %}
-    </div>
+        <div class="push"></div>
+	</div>
+	<footer class="footer">
+		<div class="container">
+            <div class="row">
+                <div class="col-xs-4">
+                    <p class="text-muted">
+                        {{ settings.HOSTNAME }} ({{ settings.VERSION }})
+                    </p>
+                </div>
+                <div class="col-xs-4 text-center">
+                    <p class="text-muted">{% now 'Y-m-d H:i:s T' %}</p>
+                </div>
+            </div>
+		</div>
+	</footer>
+    <script src="{% static "jquery/dist/jquery.min.js" %}"></script>
+    <script src="{% static "bootstrap/dist/js/bootstrap.min.js" %}"></script>
 </body>
 
 </html>
