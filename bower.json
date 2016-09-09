@@ -5,7 +5,8 @@
   "homepage": "https://github.com/c-dos/zyx-rent",
   "license": "MIT",
   "dependencies": {
-    "bootstrap": "3.3.x"
+    "bootstrap": "3.3.x",
+    "font-awesome": "4.4.x"
   },
   "authors": [
     "Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>"
