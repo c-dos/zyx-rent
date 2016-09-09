@@ -9,21 +9,44 @@
 </head>
 
 <body>
-    <div id="header">
-    {% block header %}
-    <a href="{% url 'index' %}">{% trans "Home" %}</a> | 
 
-    {% if user.is_authenticated %}
-        {% trans "Logged in" %}: {{ user.username }} 
-        (<a href="{% url 'auth_logout' %}">{% trans "Log out" %}</a> | 
-        <a href="{% url 'auth_password_change' %}">{% trans "Change password" %}</a>)
-    {% else %}
-       <a href="{% url 'auth_login' %}">{% trans "Log in" %}</a>
-    {% endif %}
-    <hr />
-    {% endblock %}
-    </div>
-
+    <hr> <!-- fixme -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'index' %}">
+                    <img src="{% static 'img/logo.png' %}" width="30"/>
+                </a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                {% if request.user.is_authenticated or not settings.LOGIN_REQUIRED %}
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tenant <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'tenant_list' %}"><i class="fa fa-search" aria-hidden="true"></i> Tenants</a></li>
+                            <li><a href="{% url 'tenant_add' %}"><i class="fa fa-plus" aria-hidden="true"></i> Add a Tenant</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                {% endif %}
+                <ul class="nav navbar-nav navbar-right">
+                    {% if request.user.is_authenticated %}
+                        <li><a href=""><i class="fa fa-user" aria-hidden="true"></i> Profile</a></li>
+                        <li><a href="{% url 'auth_logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i> Log out</a></li>
+                    {% else %}
+                    <li><a href="{% url 'auth_login' %}"><i class="fa fa-sign-in" aria-hidden="true"></i> Log in</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
 	<div class="container wrapper">
         {% for message in messages %}
             <div class="alert alert-{{ message.tags }} alert-dismissable" role="alert">
