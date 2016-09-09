@@ -2,11 +2,14 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count, Q
 from django.views import generic
 from .models import Tenant
-from .forms import TenantForm
+from .forms import TenantForm, TenantFilterForm
 from django.core.urlresolvers import reverse_lazy
-from utilities.views import ObjectEditView
+from utilities.views import ObjectEditView, ObjectListView
+from . import tables, filters, forms
+
 
 @login_required(login_url="login/")
 def index(request):
@@ -28,10 +31,12 @@ class TenantAddView(LoginRequiredMixin, ObjectEditView):
     column_created_by = 'user'
 
 
-class TenantListView(LoginView, generic.ListView):
-    model = Tenant
+class TenantListView(LoginView, ObjectListView):
+    queryset = Tenant.objects.order_by('-id')
+    table = tables.TenantTable
     template_name = 'tenants/list.html'
+    filter = filters.TenantFilter
 
-    def get_queryset(self):
-        """Return the last five tenant of user."""
-        return Tenant.objects.filter(user=self.request.user).order_by('-id')[:5]
+    # Hook filter by request
+    def alter_queryset(self, request):
+        return self.queryset.filter(user=request.user).all()

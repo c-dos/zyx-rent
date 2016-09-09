@@ -24,3 +24,9 @@ class Tenant(CreatedUpdatedModel):
     phone = models.CharField(max_length=100, blank=True)
     bank = models.CharField(max_length=100, blank=True)
     account = models.CharField(max_length=100, blank=True)
+
+
+    def __unicode__(self):
+        return self.name
+
+

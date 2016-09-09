@@ -21,7 +21,7 @@ from django.views.generic import View
 #from .error_handlers import handle_protectederror
 from .forms import ConfirmationForm
 from .paginator import EnhancedPaginator
-
+from .models import ExportTemplate
 
 class ObjectListView(View):
     queryset = None
