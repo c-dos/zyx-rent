@@ -16,6 +16,9 @@ class Property(CreatedUpdatedModel):
     owner = models.ForeignKey(User)
     tenant = models.ForeignKey('Tenant', default=None)
 
+    def __str__(self):
+        return self.name
+
 
 class Tenant(CreatedUpdatedModel):
     name = models.CharField(max_length=100, default=None)
@@ -25,8 +28,5 @@ class Tenant(CreatedUpdatedModel):
     bank = models.CharField(max_length=100, blank=True)
     account = models.CharField(max_length=100, blank=True)
 
-
-    def __unicode__(self):
+    def __str__(self):
         return self.name
-
-
