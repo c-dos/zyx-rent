@@ -7,8 +7,8 @@ urlpatterns = [
     url(r'home', views.index, name='home'),
 
     # tenant
-    url(r'^tenant/add/$', views.TenantAddView.as_view(), name='tenant_add'),
-    url(r'^tenant/$', views.TenantListView.as_view(), name='tenant_list')
-
+    url(r'^tenant/add/$', views.TenantEditView.as_view(), name='tenant_add'),
+    url(r'^tenant/$', views.TenantListView.as_view(), name='tenant_list'),
+    url(r'^tenant/(?P<pk>[\w-]+)/edit/$', views.TenantEditView.as_view(), name='tenant_edit')
 
 ]

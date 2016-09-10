@@ -22,7 +22,7 @@ class LoginView(LoginRequiredMixin, generic.View):
 
 
 # Tenant
-class TenantAddView(LoginRequiredMixin, ObjectEditView):
+class TenantEditView(LoginRequiredMixin, ObjectEditView):
     model = Tenant
     form_class = TenantForm
     success_url = reverse_lazy('tenant_list')
