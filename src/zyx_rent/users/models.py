@@ -30,3 +30,12 @@ class Tenant(CreatedUpdatedModel):
 
     def __str__(self):
         return self.name
+
+    def to_csv(self):
+        return ','.join([
+            self.name,
+            self.email,
+            self.phone,
+            self.bank,
+            self.account
+        ])

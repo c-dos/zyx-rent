@@ -14,6 +14,7 @@ from django.template import TemplateSyntaxError
 from django.utils.decorators import method_decorator
 from django.utils.http import is_safe_url
 from django.views.generic import View
+from django.conf import settings
 
 #from extras.forms import CustomFieldForm
 #from extras.models import CustomFieldValue, ExportTemplate, UserAction
@@ -45,7 +46,7 @@ class ObjectListView(View):
             et = get_object_or_404(ExportTemplate, content_type=object_ct, name=request.GET.get('export'))
             try:
                 response = et.to_response(context_dict={'queryset': self.queryset.all()},
-                                          filename='netbox_{}'.format(self.queryset.model._meta.verbose_name_plural))
+                                          filename='{}_{}'.format(settings.APP_NAME, self.queryset.model._meta.verbose_name_plural))
                 return response
             except TemplateSyntaxError:
                 messages.error(request, "There was an error rendering the selected export template ({})."
@@ -57,8 +58,8 @@ class ObjectListView(View):
                 output,
                 content_type='text/csv'
             )
-            response['Content-Disposition'] = 'attachment; filename="netbox_{}.csv"'\
-                .format(self.queryset.model._meta.verbose_name_plural)
+            response['Content-Disposition'] = 'attachment; filename="{}_{}.csv"'\
+                .format(settings.APP_NAME, self.queryset.model._meta.verbose_name_plural)
             return response
 
         # Attempt to redirect automatically if the search query returns a single result
