@@ -8,7 +8,7 @@ from .models import Tenant
 # Tenants
 #
 class TenantTable(BaseTable):
-    name = tables.LinkColumn('tenant_edit', args=[Accessor('pk')], verbose_name='Name')
+    name = tables.LinkColumn('tenant', args=[Accessor('pk')], verbose_name='Name')
     email = tables.Column(verbose_name='Email')
 
     class Meta(BaseTable.Meta):

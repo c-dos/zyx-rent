@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -40,3 +40,10 @@ class TenantListView(LoginView, ObjectListView):
     # Hook filter by request
     def alter_queryset(self, request):
         return self.queryset.filter(user=request.user).all()
+
+
+def tenant(request, pk):
+    tenant = get_object_or_404(Tenant, pk=pk)
+    return render(request, 'tenants/show.html', {
+        'tenant': tenant,
+    })

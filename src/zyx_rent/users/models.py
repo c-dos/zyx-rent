@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.urlresolvers import reverse
 from utilities.models import CreatedUpdatedModel
 
 
@@ -39,3 +40,6 @@ class Tenant(CreatedUpdatedModel):
             self.bank,
             self.account
         ])
+
+    def get_absolute_url(self):
+        return reverse('tenant', args=[self.id])
