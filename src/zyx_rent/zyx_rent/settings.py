@@ -136,3 +136,4 @@ except:
     HOSTNAME = 'localhost'
 
 VERSION = '0.0.1'
+APP_NAME = 'renty'
