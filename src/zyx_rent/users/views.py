@@ -11,7 +11,7 @@ from utilities.views import ObjectEditView, ObjectListView
 from . import tables, filters, forms
 
 
-@login_required(login_url="login/")
+@login_required(login_url="/users/login/")
 def index(request):
     return render(request, "home.html")
 
@@ -46,6 +46,7 @@ class TenantListView(LoginView, ObjectListView):
         return self.queryset.filter(user=request.user).all()
 
 
+@login_required(login_url="/users/login/")
 def tenant(request, pk):
     queryset = Tenant.objects.filter(user=request.user)
     tenant = get_object_or_404(queryset, pk=pk)
