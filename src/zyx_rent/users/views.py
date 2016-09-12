@@ -30,6 +30,10 @@ class TenantEditView(LoginRequiredMixin, ObjectEditView):
     cancel_url = 'tenant_list'
     column_created_by = 'user'
 
+    def get_object(self, kwargs, request):
+        return get_object_or_404(self.model, pk=kwargs['pk'],
+                                 user=request.user)
+
 
 class TenantListView(LoginView, ObjectListView):
     queryset = Tenant.objects.order_by('-id')
@@ -43,7 +47,8 @@ class TenantListView(LoginView, ObjectListView):
 
 
 def tenant(request, pk):
-    tenant = get_object_or_404(Tenant, pk=pk)
+    queryset = Tenant.objects.filter(user=request.user)
+    tenant = get_object_or_404(queryset, pk=pk)
     return render(request, 'tenants/show.html', {
         'tenant': tenant,
     })

@@ -105,7 +105,7 @@ class ObjectEditView(View):
     cancel_url = None
     column_created_by = None
 
-    def get_object(self, kwargs):
+    def get_object(self, kwargs, request):
         # Look up object by slug if one has been provided. Otherwise, use PK.
         if 'slug' in kwargs:
             return get_object_or_404(self.model, slug=kwargs['slug'])
@@ -115,7 +115,7 @@ class ObjectEditView(View):
     def get(self, request, *args, **kwargs):
 
         if kwargs:
-            obj = self.get_object(kwargs)
+            obj = self.get_object(kwargs, request)
             form = self.form_class(instance=obj)
         else:
             obj = None
@@ -131,7 +131,7 @@ class ObjectEditView(View):
     def post(self, request, *args, **kwargs):
 
         # Validate object if editing an existing object
-        obj = self.get_object(kwargs) if kwargs else None
+        obj = self.get_object(kwargs, request) if kwargs else None
 
         form = self.form_class(request.POST, instance=obj)
         if form.is_valid():
