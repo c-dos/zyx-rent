@@ -23,6 +23,16 @@ class Property(CreatedUpdatedModel):
     def get_absolute_url(self):
         return reverse('property', args=[self.id])
 
+    def to_csv(self):
+        return ','.join([
+            self.name,
+            self.address,
+            self.description,
+            str(self.day_payment),
+            str(self.price)
+        ])
+
+
 class Tenant(CreatedUpdatedModel):
     name = models.CharField(max_length=100, default=None)
     email = models.EmailField()
