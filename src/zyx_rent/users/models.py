@@ -20,6 +20,8 @@ class Property(CreatedUpdatedModel):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('property', args=[self.id])
 
 class Tenant(CreatedUpdatedModel):
     name = models.CharField(max_length=100, default=None)
