@@ -15,7 +15,7 @@ class Property(CreatedUpdatedModel):
     )
     price = models.DecimalField(default=None, max_digits=6, decimal_places=2)
     owner = models.ForeignKey(User)
-    tenant = models.ForeignKey('Tenant', default=None)
+    tenant = models.ForeignKey('Tenant', null=True)
 
     def __str__(self):
         return self.name
