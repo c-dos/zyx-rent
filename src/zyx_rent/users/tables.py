@@ -2,13 +2,13 @@ import django_tables2 as tables
 from django_tables2.utils import Accessor
 from utilities.tables import BaseTable, ToggleColumn
 from .models import Tenant, Property
-
+from django.utils.translation import ugettext_lazy as _
 
 #
 # Tenants
 #
 class TenantTable(BaseTable):
-    name = tables.LinkColumn('tenant', args=[Accessor('pk')], verbose_name='Name')
+    name = tables.LinkColumn('tenant', args=[Accessor('pk')], verbose_name=_('Name'))
     email = tables.Column(verbose_name='Email')
 
     class Meta(BaseTable.Meta):

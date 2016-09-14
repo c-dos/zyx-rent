@@ -1,12 +1,13 @@
 import django_filters
 from django.db.models import Q
 from .models import Tenant, Property
+from django.utils.translation import ugettext_lazy as _
 
 
 class TenantFilter(django_filters.FilterSet):
     q = django_filters.MethodFilter(
         action='search',
-        label='Search',
+        label=_('Search'),
     )
 
     class Meta:
